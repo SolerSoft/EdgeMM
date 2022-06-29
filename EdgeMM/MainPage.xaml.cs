@@ -1,24 +1,45 @@
-﻿namespace EdgeMM;
+﻿using EdgeMM.Managers;
+
+namespace EdgeMM;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    #region Private Fields
 
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+    private int count = 0;
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+    #endregion Private Fields
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+    #region Public Constructors
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+    public MainPage()
+    {
+        InitializeComponent();
+        var t = LoadDataAsync();
+    }
+
+    #endregion Public Constructors
+
+    #region Private Methods
+
+    private async Task LoadDataAsync()
+    {
+        var manager = new ProfileManager();
+
+        var prof = await manager.LoadProfileAsync(@"C:\tmp\SD\edgetx.sdcard.version");
+    }
+
+    private void OnCounterClicked(object sender, EventArgs e)
+    {
+        count++;
+
+        if (count == 1)
+            CounterBtn.Text = $"Clicked {count} time";
+        else
+            CounterBtn.Text = $"Clicked {count} times";
+
+        SemanticScreenReader.Announce(CounterBtn.Text);
+    }
+
+    #endregion Private Methods
 }
-

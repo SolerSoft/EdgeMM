@@ -1,4 +1,4 @@
-﻿namespace EdgeMM.Data
+﻿namespace EdgeMM.Entities
 {
     /// <summary>
     /// Base class for an object that has a name and is backed by a file.

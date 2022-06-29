@@ -1,6 +1,6 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 
-namespace EdgeMM.Data
+namespace EdgeMM.Entities
 {
     /// <summary>
     /// Base class for an object that has a name.

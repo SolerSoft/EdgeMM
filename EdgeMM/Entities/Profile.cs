@@ -1,5 +1,4 @@
-﻿using EdgeMM.Data;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 
 namespace EdgeMM.Entities
 {
@@ -11,7 +10,7 @@ namespace EdgeMM.Entities
         #region Private Fields
 
         private ObservableCollection<Model> models = new ObservableCollection<Model>();
-        private ObservableCollection<ModelTemplate> templates = new ObservableCollection<ModelTemplate>();
+        private ObservableCollection<Model> templates = new ObservableCollection<Model>();
 
         #endregion Private Fields
 
@@ -35,7 +34,7 @@ namespace EdgeMM.Entities
         /// <value>
         /// The list of model templates stored within the <see cref="Profile" />.
         /// </value>
-        public ObservableCollection<ModelTemplate> Templates
+        public ObservableCollection<Model> Templates
         {
             get { return templates; }
             set { SetProperty(ref templates, value); }

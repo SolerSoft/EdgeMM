@@ -1,5 +1,7 @@
-﻿using EdgeMM.Entities;
+﻿using EdgeMM.Data;
+using EdgeMM.Entities;
 using Serilog;
+using SharpYaml.Serialization;
 
 namespace EdgeMM.Managers
 {
@@ -41,7 +43,28 @@ namespace EdgeMM.Managers
                 return;
             }
 
-            // TODO: Load the models yaml
+            // Load the models yaml
+            var serializer = new Serializer();
+            var modelsData = serializer.Deserialize<ModelsData>(File.ReadAllText(modelsFilePath));
+
+            // Level 1 is a list of dictionaries
+            foreach (var categoryModels in modelsData)
+            {
+                // Level 2 is category -> models
+                foreach (var category in categoryModels)
+                {
+                    // Level 3 are the models in this category
+                    foreach (var model in category.Value)
+                    {
+                        profile.Models.Add(new Model()
+                        {
+                            Category = category.Key,
+                            Name = model.Name,
+                            Path = Path.Combine(modelsFileDir, model.FileName)
+                        });
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -107,6 +130,20 @@ namespace EdgeMM.Managers
 
             // Done loading
             return profile;
+        }
+
+        /// <summary>
+        /// Loads a <see cref="Profile" /> from the given path.
+        /// </summary>
+        /// <param name="path">
+        /// The system path to the profile.
+        /// </param>
+        /// <returns>
+        /// A <see cref="Task" /> that yields the <see cref="Profile" />.
+        /// </returns>
+        public Task<Profile> LoadProfileAsync(string path)
+        {
+            return LoadProfileAsync(path, ProfileLoadOptions.Default);
         }
 
         #endregion Public Methods
