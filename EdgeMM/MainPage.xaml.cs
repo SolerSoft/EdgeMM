@@ -1,4 +1,5 @@
 ﻿using EdgeMM.Managers;
+using Serilog;
 
 namespace EdgeMM;
 
@@ -26,7 +27,15 @@ public partial class MainPage : ContentPage
     {
         var manager = new ProfileManager();
 
-        var prof = await manager.LoadProfileAsync(@"C:\tmp\SD\edgetx.sdcard.version");
+        try
+        {
+            var prof = await manager.LoadProfileAsync(@"C:\tmp\SD\edgetx.sdcard.version");
+            Log.Debug("Profile loaded.");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Could not load profile.");
+        }
     }
 
     private void OnCounterClicked(object sender, EventArgs e)

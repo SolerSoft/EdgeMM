@@ -6,14 +6,27 @@ namespace EdgeMM.Data
     /// Yaml serialization class for a model.
     /// </summary>
     /// <remarks>
-    /// This is the item format of models.yml in the MODELS folder.
+    /// This is the format of model##.yml in the MODELS folder.
     /// </remarks>
-    internal class ModelData
+    internal class ModelData : Dictionary<string, object>
     {
         #region Public Fields
 
-        [YamlMember("filename")]
-        public string FileName;
+        [YamlMember("header")]
+        public ModelDataHeader Header;
+
+        [YamlMember("semver")]
+        public string SemVer;
+
+        #endregion Public Fields
+    }
+
+    internal class ModelDataHeader
+    {
+        #region Public Fields
+
+        [YamlMember("bitmap")]
+        public string Bitmap;
 
         [YamlMember("name")]
         public string Name;
