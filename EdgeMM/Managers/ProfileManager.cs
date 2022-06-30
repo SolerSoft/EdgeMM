@@ -64,11 +64,9 @@ namespace EdgeMM.Managers
             // Load the model yaml
             var modelData = serializer.Deserialize<ModelData>(await File.ReadAllTextAsync(modelFilePath));
 
-            return new Model()
+            return new Model(modelData)
             {
                 Category = modelRef.Category,
-                IsTemplate = modelRef.IsTemplate,
-                Name = modelRef.Name,
                 Path = modelFilePath
             };
         }
@@ -108,7 +106,6 @@ namespace EdgeMM.Managers
                     {
                         // Add the category and template into the reference data
                         modelRef.Category = category.Key;
-                        modelRef.IsTemplate = false;
 
                         // Load and add the model
                         profile.Models.Add(await LoadModelAsync(profile, modelRef));

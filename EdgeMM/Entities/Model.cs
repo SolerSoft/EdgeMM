@@ -1,10 +1,18 @@
-﻿namespace EdgeMM.Entities
+﻿using EdgeMM.Data;
+
+namespace EdgeMM.Entities
 {
     /// <summary>
     /// Represents an EdgeTX RC model.
     /// </summary>
-    public class Model : NamedFileObject
+    public class Model : FileObject<ModelData>
     {
+        #region Constants
+
+        private const string TEMPLATES_DIR = "TEMPLATES";
+
+        #endregion Constants
+
         #region Private Fields
 
         private string category;
@@ -12,6 +20,48 @@
         private bool isTemplate;
 
         #endregion Private Fields
+
+        #region Public Constructors
+
+        /// <summary>
+        /// Initializes a new <see cref="Model" /> with the specified backing data.
+        /// </summary>
+        /// <param name="modelData">
+        /// The backing data for the model.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="modelData" /> is null.
+        /// </exception>
+        public Model(ModelData modelData) : base(modelData) { }
+
+        #endregion Public Constructors
+
+        #region Private Methods
+
+        /// <summary>
+        /// Updates properties that are based on <see cref="Path" />.
+        /// </summary>
+        private void UpdatePathProperties()
+        {
+            // Kind of hacky...
+            IsTemplate = ((Path != null) && Path.Contains(TEMPLATES_DIR));
+        }
+
+        #endregion Private Methods
+
+        #region Protected Methods
+
+        /// <inheritdoc />
+        protected override void OnPathChanged()
+        {
+            // Pass to base first
+            base.OnPathChanged();
+
+            // Update related
+            UpdatePathProperties();
+        }
+
+        #endregion Protected Methods
 
         #region Public Properties
 
@@ -28,18 +78,6 @@
         }
 
         /// <summary>
-        /// Gets or sets the name of the folder where the model resides.
-        /// </summary>
-        /// <value>
-        /// The name of the folder where the model resides.
-        /// </value>
-        public string Folder
-        {
-            get { return folder; }
-            set { SetProperty(ref folder, value); }
-        }
-
-        /// <summary>
         /// Gets or sets a value that indicates if the model is a template.
         /// </summary>
         /// <value>
@@ -48,7 +86,19 @@
         public bool IsTemplate
         {
             get { return isTemplate; }
-            set { SetProperty(ref isTemplate, value); }
+            private set { SetProperty(ref isTemplate, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the model.
+        /// </summary>
+        /// <value>
+        /// The name of the model.
+        /// </value>
+        public string Name
+        {
+            get => Data.Header.Name;
+            set => SetProperty(Data.Header.Name, value, Data, (d, v) => d.Header.Name = v);
         }
 
         #endregion Public Properties

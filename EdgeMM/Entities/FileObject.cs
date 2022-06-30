@@ -1,11 +1,12 @@
-﻿using IOPath = System.IO.Path;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+using IOPath = System.IO.Path;
 
 namespace EdgeMM.Entities
 {
     /// <summary>
-    /// Base class for an object that has a name and is backed by a file.
+    /// Base class for an object that is backed by a file.
     /// </summary>
-    public abstract class NamedFileObject : NamedObject
+    public abstract class FileObject : ObservableObject
     {
         #region Private Fields
 
@@ -85,5 +86,51 @@ namespace EdgeMM.Entities
 
             #endregion Public Properties
         }
+    }
+
+    /// <summary>
+    /// Base class for an object that serializes data to a file.
+    /// </summary>
+    /// <typeparam name="TData">
+    /// The backing data type.
+    /// </typeparam>
+    public abstract class FileObject<TData> : FileObject
+    {
+        #region Private Fields
+
+        private readonly TData data;
+
+        #endregion Private Fields
+
+        #region Public Constructors
+
+        /// <summary>
+        /// Initializes a new <see cref="FileObject" /> with the specified backing data.
+        /// </summary>
+        /// <param name="data">
+        /// The backing data for the model.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="data" /> is null.
+        /// </exception>
+        public FileObject(TData data)
+        {
+            // Validate
+            if (data == null) { throw new ArgumentNullException(nameof(data)); }
+
+            // Store
+            this.data = data;
+        }
+
+        #endregion Public Constructors
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the backing data.
+        /// </summary>
+        public TData Data => data;
+
+        #endregion Public Properties
     }
 }

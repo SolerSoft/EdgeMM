@@ -6,7 +6,7 @@
     /// <remarks>
     /// This is the outer format of models.yml in the MODELS folder.
     /// </remarks>
-    internal class ModelsData : List<Dictionary<string, List<ModelReferenceData>>>
+    public class ModelsData : List<Dictionary<string, List<ModelReferenceData>>>
     {
     }
 }

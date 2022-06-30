@@ -8,7 +8,7 @@ namespace EdgeMM.Data
     /// <remarks>
     /// This is the item format of models.yml in the MODELS folder.
     /// </remarks>
-    internal class ModelReferenceData
+    public class ModelReferenceData
     {
         #region Public Fields
 
@@ -17,9 +17,6 @@ namespace EdgeMM.Data
 
         [YamlMember("filename")]
         public string FileName;
-
-        [YamlIgnore]
-        public bool IsTemplate;
 
         [YamlMember("name")]
         public string Name;

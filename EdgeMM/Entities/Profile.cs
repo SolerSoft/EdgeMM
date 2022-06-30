@@ -6,7 +6,7 @@ namespace EdgeMM.Entities
     /// <summary>
     /// Represents an EdgeTX profile, often stored on a SD Card.
     /// </summary>
-    public class Profile : NamedFileObject
+    public class Profile : FileObject
     {
         #region Constants
 
@@ -19,6 +19,7 @@ namespace EdgeMM.Entities
 
         private ObservableCollection<Model> models = new ObservableCollection<Model>();
         private string modelsPath;
+        private string name;
         private ObservableCollection<Model> templates = new ObservableCollection<Model>();
         private string templatesPath;
 
@@ -27,9 +28,9 @@ namespace EdgeMM.Entities
         #region Private Methods
 
         /// <summary>
-        /// Updates the paths for the profile based on main <see cref="Path" /> property.
+        /// Updates properties that are based on <see cref="Path" />.
         /// </summary>
-        private void UpdatePaths()
+        private void UpdatePathProperties()
         {
             ModelsPath = IOPath.Combine(Directory, MODELS_DIR);
             TemplatesPath = IOPath.Combine(Directory, TEMPLATES_DIR);
@@ -46,7 +47,7 @@ namespace EdgeMM.Entities
             base.OnPathChanged();
 
             // Update related
-            UpdatePaths();
+            UpdatePathProperties();
         }
 
         #endregion Protected Methods
@@ -75,6 +76,18 @@ namespace EdgeMM.Entities
         {
             get { return modelsPath; }
             private set { SetProperty(ref modelsPath, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the name of the object.
+        /// </summary>
+        /// <value>
+        /// The name of the object.
+        /// </value>
+        public string Name
+        {
+            get { return name; }
+            set { SetProperty(ref name, value); }
         }
 
         /// <summary>

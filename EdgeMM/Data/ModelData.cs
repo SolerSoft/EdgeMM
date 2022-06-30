@@ -8,7 +8,7 @@ namespace EdgeMM.Data
     /// <remarks>
     /// This is the format of model##.yml in the MODELS folder.
     /// </remarks>
-    internal class ModelData : Dictionary<string, object>
+    public class ModelData : Dictionary<string, object>
     {
         #region Public Fields
 
@@ -21,7 +21,7 @@ namespace EdgeMM.Data
         #endregion Public Fields
     }
 
-    internal class ModelDataHeader
+    public class ModelDataHeader
     {
         #region Public Fields
 
