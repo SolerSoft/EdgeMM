@@ -1,4 +1,5 @@
-﻿using SharpYaml.Serialization;
+﻿using ModMan.Entities;
+using SharpYaml.Serialization;
 
 namespace ModMan.Data.EdgeTX
 {
@@ -35,7 +36,7 @@ namespace ModMan.Data.EdgeTX
         public float Duration { get; set; }
 
         [YamlMember("func")] // Order=1
-        public string Function { get; set; }
+        public LogicalSwitchFunction Function { get; set; }
 
         /// <summary>
         /// The name of the switch.

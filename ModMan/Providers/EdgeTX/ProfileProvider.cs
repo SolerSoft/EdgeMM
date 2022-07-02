@@ -3,6 +3,8 @@ using ModMan.Data.EdgeTX;
 using ModMan.Entities;
 using ModMan.Entities.EdgeTX;
 using ModMan.Serialization;
+using ModMan.Serialization.EdgeTX;
+using ModMan.Serialization.Yaml;
 using Serilog;
 using SharpYaml.Serialization;
 
@@ -37,6 +39,7 @@ namespace ModMan.Providers.EdgeTX
             var settings = new SerializerSettings() { LimitPrimitiveFlowSequence = 0, SerializeDictionaryItemsAsMembers = true };
 
             // Add custom converters
+            settings.RegisterSerializerFactory(new LogicalSwitchFunctionConverter());
             settings.RegisterSerializerFactory(new VersionConverter());
 
             // Create the serializer

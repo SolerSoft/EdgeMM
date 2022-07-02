@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModMan.Serialization
+namespace ModMan.Serialization.Yaml
 {
     /// <summary>
     /// Converts a <see cref="Version"/> to and from a <see cref="Scalar"/>.
