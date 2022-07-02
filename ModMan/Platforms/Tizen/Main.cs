@@ -2,7 +2,7 @@ using System;
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 
-namespace EdgeMM;
+namespace ModMan;
 
 class Program : MauiApplication
 {

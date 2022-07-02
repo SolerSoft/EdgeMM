@@ -1,4 +1,4 @@
-﻿namespace EdgeMM.Data.Edge
+﻿namespace ModMan.Data.Edge
 {
     /// <summary>
     /// Yaml serialization class for a list of models by category.

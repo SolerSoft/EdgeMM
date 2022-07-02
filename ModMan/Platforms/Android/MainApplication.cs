@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace EdgeMM;
+namespace ModMan;
 
 [Application]
 public class MainApplication : MauiApplication

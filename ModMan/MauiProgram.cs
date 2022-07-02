@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using Serilog.Events;
 
-namespace EdgeMM;
+namespace ModMan;
 
 public static class MauiProgram
 {
@@ -10,7 +10,7 @@ public static class MauiProgram
     private static void SetupSerilog()
     {
         var flushInterval = new TimeSpan(0, 0, 1);
-        var file = Path.Combine(FileSystem.AppDataDirectory, "EdgeMM.log");
+        var file = Path.Combine(FileSystem.AppDataDirectory, "ModMan.log");
 
         Log.Logger = new LoggerConfiguration()
         .MinimumLevel.Verbose()

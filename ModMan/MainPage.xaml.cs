@@ -1,7 +1,7 @@
-﻿using EdgeMM.Managers;
+﻿using ModMan.Managers;
 using Serilog;
 
-namespace EdgeMM;
+namespace ModMan;
 
 public partial class MainPage : ContentPage
 {

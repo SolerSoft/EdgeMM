@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EdgeMM.Serialization
+namespace ModMan.Serialization
 {
     /// <summary>
     /// Converts a <see cref="Version"/> to and from a <see cref="Scalar"/>.

@@ -1,10 +1,10 @@
-﻿using EdgeMM.Data.Edge;
-using EdgeMM.Entities;
-using EdgeMM.Serialization;
+﻿using ModMan.Data.Edge;
+using ModMan.Entities;
+using ModMan.Serialization;
 using Serilog;
 using SharpYaml.Serialization;
 
-namespace EdgeMM.Managers
+namespace ModMan.Managers
 {
     /// <summary>
     /// A class for loading, saving and managing profiles.

@@ -1,4 +1,4 @@
-﻿namespace EdgeMM;
+﻿namespace ModMan;
 
 public partial class App : Application
 {

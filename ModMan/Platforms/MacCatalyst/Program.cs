@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace EdgeMM;
+namespace ModMan;
 
 public class Program
 {

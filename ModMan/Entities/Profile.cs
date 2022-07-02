@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using IOPath = System.IO.Path;
 
-namespace EdgeMM.Entities
+namespace ModMan.Entities
 {
     /// <summary>
     /// Represents an EdgeTX profile, often stored on a SD Card.

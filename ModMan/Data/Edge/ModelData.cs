@@ -1,6 +1,6 @@
 ﻿using SharpYaml.Serialization;
 
-namespace EdgeMM.Data.Edge
+namespace ModMan.Data.Edge
 {
     /// <summary>
     /// Yaml serialization class for a model.

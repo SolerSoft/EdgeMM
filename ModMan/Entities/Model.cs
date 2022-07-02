@@ -1,6 +1,6 @@
-﻿using EdgeMM.Data.Edge;
+﻿using ModMan.Data.Edge;
 
-namespace EdgeMM.Entities
+namespace ModMan.Entities
 {
     /// <summary>
     /// Represents an EdgeTX RC model.

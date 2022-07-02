@@ -1,4 +1,4 @@
-﻿namespace EdgeMM.Managers
+﻿namespace ModMan.Managers
 {
     /// <summary>
     /// Defines which templates to load.

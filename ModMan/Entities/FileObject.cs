@@ -1,7 +1,7 @@
 ﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using IOPath = System.IO.Path;
 
-namespace EdgeMM.Entities
+namespace ModMan.Entities
 {
     /// <summary>
     /// Base class for an object that is backed by a file.
