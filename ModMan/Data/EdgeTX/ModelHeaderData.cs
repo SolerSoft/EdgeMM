@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ModMan.Data.EdgeTX
 {
-    public class ModelDataHeader
+    public class ModelHeaderData : Expando
     {
         #region Public Fields
 

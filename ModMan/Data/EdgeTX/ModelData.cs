@@ -13,10 +13,13 @@ namespace ModMan.Data.EdgeTX
         #region Public Fields
 
         [YamlMember("header")]
-        public ModelDataHeader Header { get; set; }
+        public ModelHeaderData Header { get; set; }
 
         [YamlMember("semver")]
         public Version SemVer { get; set; }
+
+        [YamlMember("logicalSw")]
+        public Dictionary<int, LogicalSwitchData> LogicalSwitches { get; set; }
 
         #endregion Public Fields
     }
