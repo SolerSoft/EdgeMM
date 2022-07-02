@@ -8,19 +8,19 @@ namespace ModMan.Data.EdgeTX
     /// <remarks>
     /// This is the item format of models.yml in the MODELS folder.
     /// </remarks>
-    public class ModelReferenceData
+    public class ModelReferenceData : Expando
     {
-        #region Public Fields
+        #region Public Properties
 
         [YamlIgnore]
-        public string Category;
+        public string Category { get; set; }
 
-        [YamlMember("filename")]
-        public string FileName;
+        [YamlMember("filename")] // Order=0
+        public string FileName { get; set; }
 
-        [YamlMember("name")]
-        public string Name;
+        [YamlMember("name")] // Order=1
+        public string Name { get; set; }
 
-        #endregion Public Fields
+        #endregion Public Properties
     }
 }

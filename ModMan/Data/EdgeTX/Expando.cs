@@ -9,6 +9,9 @@ namespace ModMan.Data.EdgeTX
     /// <summary>
     /// A base class for EdgeTX data classes that are serialized with Yaml.
     /// </summary>
+    /// <remarks>
+    /// Using this base class ensures that data not explicitly serialized by the class isn't lost.
+    /// </remarks>
     public class Expando : Dictionary<string, object>
     {
     }

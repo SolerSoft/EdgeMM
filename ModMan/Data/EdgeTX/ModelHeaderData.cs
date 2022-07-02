@@ -1,22 +1,20 @@
 ﻿using SharpYaml.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ModMan.Data.EdgeTX
 {
+    /// <summary>
+    /// The header data for an EdgeTX model.
+    /// </summary>
     public class ModelHeaderData : Expando
     {
-        #region Public Fields
+        #region Public Properties
 
-        [YamlMember("bitmap")]
+        [YamlMember("bitmap")] // Order=1
         public string Bitmap { get; set; }
 
-        [YamlMember("name")]
+        [YamlMember("name")] // Order=0
         public string Name { get; set; }
 
-        #endregion Public Fields
+        #endregion Public Properties
     }
 }

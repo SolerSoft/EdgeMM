@@ -10,17 +10,17 @@ namespace ModMan.Data.EdgeTX
     /// </remarks>
     public class ModelData : Expando
     {
-        #region Public Fields
+        #region Public Properties
 
-        [YamlMember("header")]
+        [YamlMember("header")] // Order=1
         public ModelHeaderData Header { get; set; }
 
-        [YamlMember("semver")]
-        public Version SemVer { get; set; }
-
-        [YamlMember("logicalSw")]
+        [YamlMember("logicalSw")]// Order=5
         public Dictionary<int, LogicalSwitchData> LogicalSwitches { get; set; }
 
-        #endregion Public Fields
+        [YamlMember("semver")] // Order=0
+        public Version SemVer { get; set; }
+
+        #endregion Public Properties
     }
 }
