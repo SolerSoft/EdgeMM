@@ -55,4 +55,8 @@
 	  <PackageReference Include="SharpYaml" Version="1.9.2" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Managers\EdgeTX\" />
+	</ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿namespace ModMan.Managers
+﻿namespace ModMan.Data
 {
     /// <summary>
     /// Defines which templates to load.
@@ -17,9 +17,9 @@
         Personal = 1,
 
         /// <summary>
-        /// Wizard templates will be loaded.
+        /// System templates (such as wizards) will be loaded.
         /// </summary>
-        Wizard = 2,
+        System = 2,
 
         /// <summary>
         /// All templates will be loaded.

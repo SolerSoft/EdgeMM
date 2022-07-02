@@ -1,11 +1,11 @@
-﻿using ModMan.Data.Edge;
+﻿using ModMan.Data.EdgeTX;
 
-namespace ModMan.Entities
+namespace ModMan.Entities.EdgeTX
 {
     /// <summary>
     /// Represents an EdgeTX RC model.
     /// </summary>
-    public class Model : FileObject<ModelData>
+    public class Model : FileObject<ModelData>, IModel
     {
         #region Constants
 
@@ -44,7 +44,7 @@ namespace ModMan.Entities
         private void UpdatePathProperties()
         {
             // Kind of hacky...
-            IsTemplate = ((Path != null) && Path.Contains(TEMPLATES_DIR));
+            IsTemplate = Path != null && Path.Contains(TEMPLATES_DIR);
         }
 
         #endregion Private Methods
@@ -65,36 +65,21 @@ namespace ModMan.Entities
 
         #region Public Properties
 
-        /// <summary>
-        /// Gets or sets the category of the model.
-        /// </summary>
-        /// <value>
-        /// The category of the model.
-        /// </value>
+        /// <inheritdoc/>
         public string Category
         {
             get { return category; }
             set { SetProperty(ref category, value); }
         }
 
-        /// <summary>
-        /// Gets or sets a value that indicates if the model is a template.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if the model is a template; otherwise <c>false</c>.
-        /// </value>
+        /// <inheritdoc/>
         public bool IsTemplate
         {
             get { return isTemplate; }
             private set { SetProperty(ref isTemplate, value); }
         }
 
-        /// <summary>
-        /// Gets or sets the name of the model.
-        /// </summary>
-        /// <value>
-        /// The name of the model.
-        /// </value>
+        /// <inheritdoc/>
         public string Name
         {
             get => Data.Header.Name;

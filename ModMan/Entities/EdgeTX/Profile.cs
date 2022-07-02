@@ -1,12 +1,13 @@
 ﻿using System.Collections.ObjectModel;
 using IOPath = System.IO.Path;
+using ModelCollection = ModMan.Entities.EntityCollection<ModMan.Entities.IModel, ModMan.Entities.EdgeTX.Model>;
 
-namespace ModMan.Entities
+namespace ModMan.Entities.EdgeTX
 {
     /// <summary>
     /// Represents an EdgeTX profile, often stored on a SD Card.
     /// </summary>
-    public class Profile : FileObject
+    public class Profile : FileObject, IProfile
     {
         #region Constants
 
@@ -17,18 +18,25 @@ namespace ModMan.Entities
 
         #region Private Fields
 
-        private ObservableCollection<Model> models = new ObservableCollection<Model>();
+        private ModelCollection models = new ModelCollection();
         private string modelsPath;
         private string name;
-        private ObservableCollection<Model> templates = new ObservableCollection<Model>();
+        private ModelCollection templates = new ModelCollection();
         private string templatesPath;
 
         #endregion Private Fields
 
+        #region IProfile Implementation
+
+        IEntityCollection<IModel> IProfile.Models => models;
+        IEntityCollection<IModel> IProfile.Templates => templates;
+        
+        #endregion // IProfile Implementation
+
         #region Private Methods
 
         /// <summary>
-        /// Updates properties that are based on <see cref="Path" />.
+        /// Updates properties that are based on <see cref="IOPath" />.
         /// </summary>
         private void UpdatePathProperties()
         {
@@ -60,7 +68,7 @@ namespace ModMan.Entities
         /// <value>
         /// The list of models stored within the <see cref="Profile" />.
         /// </value>
-        public ObservableCollection<Model> Models
+        public ModelCollection Models
         {
             get { return models; }
             set { SetProperty(ref models, value); }
@@ -96,7 +104,7 @@ namespace ModMan.Entities
         /// <value>
         /// The list of model templates stored within the <see cref="Profile" />.
         /// </value>
-        public ObservableCollection<Model> Templates
+        public ModelCollection Templates
         {
             get { return templates; }
             set { SetProperty(ref templates, value); }

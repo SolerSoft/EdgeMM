@@ -1,15 +1,17 @@
-﻿using ModMan.Data.Edge;
+﻿using ModMan.Data;
+using ModMan.Data.EdgeTX;
 using ModMan.Entities;
+using ModMan.Entities.EdgeTX;
 using ModMan.Serialization;
 using Serilog;
 using SharpYaml.Serialization;
 
-namespace ModMan.Managers
+namespace ModMan.Providers.EdgeTX
 {
     /// <summary>
-    /// A class for loading, saving and managing profiles.
+    /// A provider that can read and write EdgeTX profile data.
     /// </summary>
-    public class ProfileManager
+    public class ProfileProvider : IProfileProvider
     {
         #region Constants
 
@@ -27,9 +29,9 @@ namespace ModMan.Managers
         #region Public Constructors
 
         /// <summary>
-        /// Initializes a new <see cref="ProfileManager" /> instance.
+        /// Initializes a new <see cref="ProfileProvider" /> instance.
         /// </summary>
-        public ProfileManager()
+        public ProfileProvider()
         {
             // Create the settings
             var settings = new SerializerSettings() { LimitPrimitiveFlowSequence = 0, SerializeDictionaryItemsAsMembers = true };
@@ -142,30 +144,46 @@ namespace ModMan.Managers
 
         #region Public Methods
 
-        /// <summary>
-        /// Loads a <see cref="Profile" /> from the given path.
-        /// </summary>
-        /// <param name="path">
-        /// The system path to the profile.
-        /// </param>
-        /// <param name="options">
-        /// The <see cref="ProfileLoadOptions" /> that control how data is loaded.
-        /// </param>
-        /// <returns>
-        /// A <see cref="Task" /> that yields the <see cref="Profile" />.
-        /// </returns>
-        public async Task<Profile> LoadProfileAsync(string path, ProfileLoadOptions options)
+        /// <inheritdoc/>
+        public Task<IEnumerable<IProfileReference>> GetProfilesAsync()
+        {
+            // Create an output list
+            List<IProfileReference> profiles = new();
+
+            // Get all the version files (there will only be one)
+            var files = Directory.GetFiles(@"C:\tmp\SD", "edgetx.sdcard.version");
+
+            // Add a profile for each version file
+            foreach(var file in files)
+            {
+                profiles.Add(new ProfileReferenceFile()
+                {
+                    Name = Path.GetFileName(file),
+                    Path = file,
+                    Provider = this,
+                });
+            }
+
+            // Return the profiles
+            return Task.FromResult<IEnumerable<IProfileReference>>(profiles);
+        }
+
+        /// <inheritdoc/>
+        public async Task<IProfile> LoadProfileAsync(IProfileReference reference, ProfileLoadOptions options)
         {
             // Validate
-            if (string.IsNullOrEmpty(path)) { throw new ArgumentException(nameof(path)); }
+            if (reference == null) { throw new ArgumentNullException(nameof(reference)); }
+
+            // Cast
+            var proRef = (ProfileReferenceFile)reference;
 
             // Make sure file exists
-            if (!File.Exists(path)) { throw new FileNotFoundException($"The profile '{path}' was not found."); }
+            if (!File.Exists(proRef.Path)) { throw new FileNotFoundException($"The profile '{proRef.Path}' was not found."); }
 
             // TODO: Load the name
 
             // Create the profile
-            Profile profile = new Profile() { Path = path };
+            Profile profile = new Profile() { Path = proRef.Path };
 
             // Load the templates?
             if (options.IncludeTemplates != ModelTemplateSources.None)
@@ -181,20 +199,6 @@ namespace ModMan.Managers
 
             // Done loading
             return profile;
-        }
-
-        /// <summary>
-        /// Loads a <see cref="Profile" /> from the given path.
-        /// </summary>
-        /// <param name="path">
-        /// The system path to the profile.
-        /// </param>
-        /// <returns>
-        /// A <see cref="Task" /> that yields the <see cref="Profile" />.
-        /// </returns>
-        public Task<Profile> LoadProfileAsync(string path)
-        {
-            return LoadProfileAsync(path, ProfileLoadOptions.Default);
         }
 
         #endregion Public Methods

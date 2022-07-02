@@ -83,9 +83,9 @@ namespace ModMan.Entities
                     OnPathChanged();
                 }
             }
-
-            #endregion Public Properties
         }
+
+        #endregion Public Properties
     }
 
     /// <summary>

@@ -1,6 +1,6 @@
 ﻿using SharpYaml.Serialization;
 
-namespace ModMan.Data.Edge
+namespace ModMan.Data.EdgeTX
 {
     /// <summary>
     /// Yaml serialization class for a model.
@@ -8,7 +8,7 @@ namespace ModMan.Data.Edge
     /// <remarks>
     /// This is the format of model##.yml in the MODELS folder.
     /// </remarks>
-    public class ModelData : Dictionary<string, object>
+    public class ModelData : Expando
     {
         #region Public Fields
 
@@ -17,19 +17,6 @@ namespace ModMan.Data.Edge
 
         [YamlMember("semver")]
         public Version SemVer { get; set; }
-
-        #endregion Public Fields
-    }
-
-    public class ModelDataHeader
-    {
-        #region Public Fields
-
-        [YamlMember("bitmap")]
-        public string Bitmap { get; set; }
-
-        [YamlMember("name")]
-        public string Name { get; set; }
 
         #endregion Public Fields
     }
