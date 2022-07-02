@@ -14,16 +14,19 @@ namespace ModMan.Serialization.Yaml
     /// </summary>
     public class VersionConverter : ScalarSerializerBase, IYamlSerializableFactory
     {
+        /// <inheritdoc/>
         public override object ConvertFrom(ref ObjectContext context, Scalar fromScalar)
         {
             return Version.Parse(fromScalar.Value);
         }
 
+        /// <inheritdoc/>
         public override string ConvertTo(ref ObjectContext objectContext)
         {
             return ((Version)objectContext.Instance).ToString();
         }
 
+        /// <inheritdoc/>
         public IYamlSerializable TryCreate(SerializerContext context, ITypeDescriptor typeDescriptor)
         {
             return typeDescriptor.Type == typeof(Version) ? this : null;
