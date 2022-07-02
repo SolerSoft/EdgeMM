@@ -1,4 +1,4 @@
-﻿using EdgeMM.Data;
+﻿using EdgeMM.Data.Edge;
 using EdgeMM.Entities;
 using EdgeMM.Serialization;
 using Serilog;

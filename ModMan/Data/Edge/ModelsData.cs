@@ -1,4 +1,4 @@
-﻿namespace EdgeMM.Data
+﻿namespace EdgeMM.Data.Edge
 {
     /// <summary>
     /// Yaml serialization class for a list of models by category.

@@ -1,4 +1,4 @@
-﻿using EdgeMM.Data;
+﻿using EdgeMM.Data.Edge;
 
 namespace EdgeMM.Entities
 {
