@@ -13,10 +13,10 @@ namespace EdgeMM.Data
         #region Public Fields
 
         [YamlMember("header")]
-        public ModelDataHeader Header;
+        public ModelDataHeader Header { get; set; }
 
         [YamlMember("semver")]
-        public string SemVer;
+        public Version SemVer { get; set; }
 
         #endregion Public Fields
     }
@@ -26,10 +26,10 @@ namespace EdgeMM.Data
         #region Public Fields
 
         [YamlMember("bitmap")]
-        public string Bitmap;
+        public string Bitmap { get; set; }
 
         [YamlMember("name")]
-        public string Name;
+        public string Name { get; set; }
 
         #endregion Public Fields
     }

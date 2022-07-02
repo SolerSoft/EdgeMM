@@ -1,5 +1,6 @@
 ﻿using EdgeMM.Data;
 using EdgeMM.Entities;
+using EdgeMM.Serialization;
 using Serilog;
 using SharpYaml.Serialization;
 
@@ -30,7 +31,13 @@ namespace EdgeMM.Managers
         /// </summary>
         public ProfileManager()
         {
+            // Create the settings
             var settings = new SerializerSettings() { LimitPrimitiveFlowSequence = 0, SerializeDictionaryItemsAsMembers = true };
+
+            // Add custom converters
+            settings.RegisterSerializerFactory(new VersionConverter());
+
+            // Create the serializer
             serializer = new Serializer(settings);
         }
 
