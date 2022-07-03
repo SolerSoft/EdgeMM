@@ -9,7 +9,7 @@ namespace ModMan.Entities
     /// <summary>
     /// The interface for a RC model.
     /// </summary>
-    public interface IModel
+    public interface IModel : IEntity
     {
         #region Public Properties
 

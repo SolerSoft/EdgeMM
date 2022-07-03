@@ -1,11 +1,12 @@
 ﻿using ModMan.Data.EdgeTX;
+using System.Collections.ObjectModel;
 
 namespace ModMan.Entities.EdgeTX
 {
     /// <summary>
     /// Represents an EdgeTX RC model.
     /// </summary>
-    public class Model : FileObject<ModelData>, IModel
+    public class Model : MappedEntity<ModelData>, IModel
     {
         #region Constants
 
@@ -16,8 +17,8 @@ namespace ModMan.Entities.EdgeTX
         #region Private Fields
 
         private string category;
-        private string folder;
         private bool isTemplate;
+        private string path;
 
         #endregion Private Fields
 
@@ -26,58 +27,40 @@ namespace ModMan.Entities.EdgeTX
         /// <summary>
         /// Initializes a new <see cref="Model" /> with the specified backing data.
         /// </summary>
+        /// <param name="path">
+        /// The path to the model file.
+        /// </param>
         /// <param name="modelData">
         /// The backing data for the model.
         /// </param>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="modelData" /> is null.
         /// </exception>
-        public Model(ModelData modelData) : base(modelData) { }
+        public Model(string path, ModelData modelData) : base(modelData) 
+        {
+            // Validate
+            if (string.IsNullOrEmpty(path)) { throw new ArgumentException(nameof(path)); }
+
+            // Store
+            this.path = path;
+
+            // Calculate
+            isTemplate = path.Contains(TEMPLATES_DIR);
+        }
 
         #endregion Public Constructors
-
-        #region Private Methods
-
-        /// <summary>
-        /// Updates properties that are based on <see cref="Path" />.
-        /// </summary>
-        private void UpdatePathProperties()
-        {
-            // Kind of hacky...
-            IsTemplate = Path != null && Path.Contains(TEMPLATES_DIR);
-        }
-
-        #endregion Private Methods
-
-        #region Protected Methods
-
-        /// <inheritdoc />
-        protected override void OnPathChanged()
-        {
-            // Pass to base first
-            base.OnPathChanged();
-
-            // Update related
-            UpdatePathProperties();
-        }
-
-        #endregion Protected Methods
 
         #region Public Properties
 
         /// <inheritdoc/>
         public string Category
         {
-            get { return category; }
-            set { SetProperty(ref category, value); }
+            get => category;
+            set => SetProperty(ref category, value);
         }
 
         /// <inheritdoc/>
-        public bool IsTemplate
-        {
-            get { return isTemplate; }
-            private set { SetProperty(ref isTemplate, value); }
-        }
+        public bool IsTemplate => isTemplate;
 
         /// <inheritdoc/>
         public string Name
@@ -85,6 +68,11 @@ namespace ModMan.Entities.EdgeTX
             get => Data.Header.Name;
             set => SetProperty(Data.Header.Name, value, Data, (d, v) => d.Header.Name = v);
         }
+
+        /// <summary>
+        /// Gets the path to the model file.
+        /// </summary>
+        public string Path => path;
 
         #endregion Public Properties
     }

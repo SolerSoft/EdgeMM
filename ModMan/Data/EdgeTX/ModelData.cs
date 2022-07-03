@@ -16,7 +16,7 @@ namespace ModMan.Data.EdgeTX
         public ModelHeaderData Header { get; set; }
 
         [YamlMember("logicalSw")]// Order=5
-        public Dictionary<int, LogicalSwitchData> LogicalSwitches { get; set; }
+        public SortedDictionary<int, LogicalSwitchData> LogicalSwitches { get; set; }
 
         [YamlMember("semver")] // Order=0
         public Version SemVer { get; set; }

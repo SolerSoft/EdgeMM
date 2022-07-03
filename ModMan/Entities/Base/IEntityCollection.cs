@@ -10,8 +10,9 @@ namespace ModMan.Entities
     /// <summary>
     /// The interface for a collection of entities by interface.
     /// </summary>
-    /// <typeparam name="IEntity">
+    /// <typeparam name="TInterface">
     /// The type of the entity interface.
     /// </typeparam>
-    public interface IEntityCollection<IEntity> : ICollection<IEntity>, INotifyCollectionChanged { }
+    public interface IEntityCollection<TInterface> : ICollection<TInterface>, INotifyCollectionChanged where TInterface : IEntity
+    { }
 }

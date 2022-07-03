@@ -49,6 +49,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Entities\Base\FileObject.cs" />
+	  <Compile Remove="Entities\Base\IFileObject.cs" />
+	  <Compile Remove="Serialization\Yaml\IndexedListDescriptor.cs" />
+	  <Compile Remove="Serialization\Yaml\IndexedListSerializer.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="BidirectionalMap" Version="1.0.0" />
 	  <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
 	  <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />

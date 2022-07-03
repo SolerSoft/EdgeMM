@@ -3,7 +3,7 @@
     /// <summary>
     /// The interface for a profile which contains models, templates, etc.
     /// </summary>
-    public interface IProfile
+    public interface IProfile : IEntity
     {
         #region Public Properties
 

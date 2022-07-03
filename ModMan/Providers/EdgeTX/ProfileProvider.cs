@@ -76,10 +76,10 @@ namespace ModMan.Providers.EdgeTX
             // Load the model yaml
             var modelData = serializer.Deserialize<ModelData>(await File.ReadAllTextAsync(modelFilePath));
 
-            return new Model(modelData)
+            // Wrap in entity
+            return new Model(modelFilePath, modelData)
             {
                 Category = modelRef.Category,
-                Path = modelFilePath
             };
         }
 
@@ -159,11 +159,9 @@ namespace ModMan.Providers.EdgeTX
             // Add a profile for each version file
             foreach(var file in files)
             {
-                profiles.Add(new ProfileReferenceFile()
+                profiles.Add(new ProfileReferenceFile(this, file)
                 {
                     Name = Path.GetFileName(file),
-                    Path = file,
-                    Provider = this,
                 });
             }
 
@@ -186,7 +184,7 @@ namespace ModMan.Providers.EdgeTX
             // TODO: Load the name
 
             // Create the profile
-            Profile profile = new Profile() { Path = proRef.Path };
+            Profile profile = new Profile(proRef.Path);
 
             // Load the templates?
             if (options.IncludeTemplates != ModelTemplateSources.None)

@@ -7,7 +7,7 @@ namespace ModMan.Entities.EdgeTX
     /// <summary>
     /// Represents an EdgeTX profile, often stored on a SD Card.
     /// </summary>
-    public class Profile : FileObject, IProfile
+    public class Profile : Entity, IProfile
     {
         #region Constants
 
@@ -19,46 +19,32 @@ namespace ModMan.Entities.EdgeTX
         #region Private Fields
 
         private ModelCollection models = new ModelCollection();
-        private string modelsPath;
         private string name;
         private ModelCollection templates = new ModelCollection();
-        private string templatesPath;
 
         #endregion Private Fields
+
+        public Profile(string path)
+        {
+            // Validate
+            if (string.IsNullOrEmpty(path)) { throw new ArgumentException(nameof(path)); }
+
+            // Store
+            Path = path;
+
+            // Calculate
+            string directory = IOPath.GetDirectoryName(path);
+            ModelsPath = IOPath.Combine(directory, MODELS_DIR);
+            TemplatesPath = IOPath.Combine(directory, TEMPLATES_DIR);
+        }
 
         #region IProfile Implementation
 
         IEntityCollection<IModel> IProfile.Models => models;
         IEntityCollection<IModel> IProfile.Templates => templates;
-        
+
         #endregion // IProfile Implementation
 
-        #region Private Methods
-
-        /// <summary>
-        /// Updates properties that are based on <see cref="IOPath" />.
-        /// </summary>
-        private void UpdatePathProperties()
-        {
-            ModelsPath = IOPath.Combine(Directory, MODELS_DIR);
-            TemplatesPath = IOPath.Combine(Directory, TEMPLATES_DIR);
-        }
-
-        #endregion Private Methods
-
-        #region Protected Methods
-
-        /// <inheritdoc />
-        protected override void OnPathChanged()
-        {
-            // Pass to base first
-            base.OnPathChanged();
-
-            // Update related
-            UpdatePathProperties();
-        }
-
-        #endregion Protected Methods
 
         #region Public Properties
 
@@ -80,11 +66,7 @@ namespace ModMan.Entities.EdgeTX
         /// <value>
         /// The path to the model files stored within the <see cref="Profile" />.
         /// </value>
-        public string ModelsPath
-        {
-            get { return modelsPath; }
-            private set { SetProperty(ref modelsPath, value); }
-        }
+        public string ModelsPath { get; private set; }
 
         /// <summary>
         /// Gets or sets the name of the object.
@@ -97,6 +79,11 @@ namespace ModMan.Entities.EdgeTX
             get { return name; }
             set { SetProperty(ref name, value); }
         }
+
+        /// <summary>
+        /// Gets the path to the profile main file.
+        /// </summary>
+        public string Path { get; private set; }
 
         /// <summary>
         /// Gets or sets the list of model templates stored within the <see cref="Profile" />.
@@ -116,11 +103,7 @@ namespace ModMan.Entities.EdgeTX
         /// <value>
         /// The path to the template files stored within the <see cref="Profile" />.
         /// </value>
-        public string TemplatesPath
-        {
-            get { return templatesPath; }
-            private set { SetProperty(ref templatesPath, value); }
-        }
+        public string TemplatesPath { get; private set; }
 
         #endregion Public Properties
     }

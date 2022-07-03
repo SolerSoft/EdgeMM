@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpYaml.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -187,5 +188,52 @@ namespace ModMan.Entities
     /// </remarks>
     public interface ILogicalSwitch
     {
+        #region Public Properties
+
+        string AndSwitch { get; set; }
+
+        string Definition { get; set; }
+
+        /// <summary>
+        /// Gets or sets the a delay before the switch comes on, once the conditions are true.
+        /// </summary>
+        /// <value>
+        /// The a delay before the switch comes on, once the conditions are true.
+        /// </value>
+        TimeSpan Delay { get; set; }
+
+        /// <summary>
+        /// Gets or sets the length of time the switch will stay ON.
+        /// </summary>
+        /// <value>
+        /// The length of time the switch will stay ON.
+        /// </value>
+        /// <remarks>
+        /// If set to 0.0, the switch will remain on until the conditions make the switch off. Any other setting will 
+        /// cause the switch to go off after the number of seconds selected, even if the conditions remain true.
+        /// </remarks>
+        TimeSpan Duration { get; set; }
+
+        /// <summary>
+        /// Gets or sets the function that will be used to evaluate whether the logical switch is on.
+        /// </summary>
+        /// <value>
+        /// The function that will be used to evaluate whether the logical switch is on.
+        /// </value>
+        LogicalSwitchFunction Function { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the switch.
+        /// </summary>
+        /// <value>
+        /// The name of the switch.
+        /// </value>
+        /// <remarks>
+        /// Note that EdgeTX does not currently support this, but since EdgeTX stores data as yaml we can extend it.
+        /// </remarks>
+        string Name { get; set; }
+
+        #endregion Public Properties
+
     }
 }
