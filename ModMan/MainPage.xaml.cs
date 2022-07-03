@@ -1,5 +1,5 @@
-﻿using ModMan.Data;
-using ModMan.Providers;
+﻿using ModMan.Core.Providers;
+using ModMan.EdgeTX.Data;
 using Serilog;
 
 namespace ModMan;
@@ -27,16 +27,16 @@ public partial class MainPage : ContentPage
     private async Task LoadDataAsync()
     {
         // Just use EdgeTX for now
-        IProfileProvider provider = new Providers.EdgeTX.ProfileProvider();
+        IProfileProvider provider = new EdgeTX.Providers.ProfileProvider();
 
         try
         {
             // Get the first profile reference
             var profileReference = (await provider.GetProfilesAsync()).First();
-            
+
             // Load the profile
             var profile = await provider.LoadProfileAsync(profileReference, ProfileLoadOptions.Default);
-            
+
             Log.Debug("Profile loaded.");
         }
         catch (Exception ex)

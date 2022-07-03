@@ -49,10 +49,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Entities\Base\FileObject.cs" />
-	  <Compile Remove="Entities\Base\IFileObject.cs" />
-	  <Compile Remove="Serialization\Yaml\IndexedListDescriptor.cs" />
-	  <Compile Remove="Serialization\Yaml\IndexedListSerializer.cs" />
+	  <Compile Remove="Core\Serialization\Yaml\IndexedListDescriptor.cs" />
+	  <Compile Remove="Core\Serialization\Yaml\IndexedListSerializer.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -64,7 +62,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Managers\EdgeTX\" />
+	  <Folder Include="Core\Managers\" />
 	</ItemGroup>
 
 </Project>

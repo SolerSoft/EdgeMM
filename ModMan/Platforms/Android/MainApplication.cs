@@ -6,10 +6,18 @@ namespace ModMan;
 [Application]
 public class MainApplication : MauiApplication
 {
-	public MainApplication(IntPtr handle, JniHandleOwnership ownership)
-		: base(handle, ownership)
-	{
-	}
+    #region Public Constructors
 
-	protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+    public MainApplication(IntPtr handle, JniHandleOwnership ownership)
+        : base(handle, ownership)
+    {
+    }
+
+    #endregion Public Constructors
+
+    #region Protected Methods
+
+    protected override MauiApp CreateMauiApp() => MauiProgram.CreateMauiApp();
+
+    #endregion Protected Methods
 }
