@@ -1,4 +1,4 @@
-﻿namespace ModMan.EdgeTX.Data
+﻿namespace ModMan.Core.Providers
 {
     /// <summary>
     /// Defines which templates to load.

@@ -26,7 +26,7 @@ namespace ModMan.EdgeTX.Data
         /// The a delay before the switch comes on once the conditions are true.
         /// </summary>
         [YamlMember("delay")] // Order=4
-        public float Delay { get; set; }
+        public TimeSpan Delay { get; set; }
 
         /// <summary>
         /// The length of time the switch will stay ON. If set to 0.0, the switch will remain on until the conditions
@@ -34,7 +34,7 @@ namespace ModMan.EdgeTX.Data
         /// even if the conditions remain true.
         /// </summary>
         [YamlMember("duration")] // Order=5
-        public float Duration { get; set; }
+        public TimeSpan Duration { get; set; }
 
         [YamlMember("func")] // Order=1
         public LogicalSwitchFunction Function { get; set; }

@@ -162,19 +162,33 @@
     }
 
     /// <summary>
-    /// The interface for a logical switch.
+    /// An EdgeTX logical switch.
     /// </summary>
-    /// <remarks>
-    /// Most radios follow the <see href="http://open-txu.org/home/continuing-education/logical-switch-functions/">
-    /// standard defined by OpenTX</see>. EdgeTX defines data types for these functions in <see href="https://github.com/EdgeTX/edgetx/blob/main/companion/src/firmwares/edgetx/yaml_logicalswitchdata.cpp">yaml_logicalswitchdata.cpp</see>.
-    /// </remarks>
-    public interface ILogicalSwitch : IEntity
+    public class LogicalSwitch : NamedEntity
     {
+        #region Private Fields
+
+        private string andSwitch;
+        private string definition;
+        private TimeSpan delay;
+        private TimeSpan duration;
+        private LogicalSwitchFunction function;
+
+        #endregion Private Fields
+
         #region Public Properties
 
-        string AndSwitch { get; set; }
+        public string AndSwitch
+        {
+            get => andSwitch;
+            set => SetProperty(ref andSwitch, value);
+        }
 
-        string Definition { get; set; }
+        public string Definition
+        {
+            get => definition;
+            set => SetProperty(ref definition, value);
+        }
 
         /// <summary>
         /// Gets or sets the a delay before the switch comes on, once the conditions are true.
@@ -182,7 +196,11 @@
         /// <value>
         /// The a delay before the switch comes on, once the conditions are true.
         /// </value>
-        TimeSpan Delay { get; set; }
+        public TimeSpan Delay
+        {
+            get => delay;
+            set => SetProperty(ref delay, value);
+        }
 
         /// <summary>
         /// Gets or sets the length of time the switch will stay ON.
@@ -194,7 +212,11 @@
         /// If set to 0.0, the switch will remain on until the conditions make the switch off. Any other setting will
         /// cause the switch to go off after the number of seconds selected, even if the conditions remain true.
         /// </remarks>
-        TimeSpan Duration { get; set; }
+        public TimeSpan Duration
+        {
+            get => duration;
+            set => SetProperty(ref duration, value);
+        }
 
         /// <summary>
         /// Gets or sets the function that will be used to evaluate whether the logical switch is on.
@@ -202,18 +224,11 @@
         /// <value>
         /// The function that will be used to evaluate whether the logical switch is on.
         /// </value>
-        LogicalSwitchFunction Function { get; set; }
-
-        /// <summary>
-        /// Gets or sets the name of the switch.
-        /// </summary>
-        /// <value>
-        /// The name of the switch.
-        /// </value>
-        /// <remarks>
-        /// Note that EdgeTX does not currently support this, but since EdgeTX stores data as yaml we can extend it.
-        /// </remarks>
-        string Name { get; set; }
+        public LogicalSwitchFunction Function
+        {
+            get => function;
+            set => SetProperty(ref function, value);
+        }
 
         #endregion Public Properties
     }

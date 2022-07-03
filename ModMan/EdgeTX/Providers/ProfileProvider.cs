@@ -2,7 +2,6 @@
 using ModMan.Core.Providers;
 using ModMan.Core.Serialization.Yaml;
 using ModMan.EdgeTX.Data;
-using ModMan.EdgeTX.Entities;
 using ModMan.EdgeTX.Serialization;
 using Serilog;
 using SharpYaml.Serialization;
@@ -17,6 +16,7 @@ namespace ModMan.EdgeTX.Providers
         #region Constants
 
         private const string MODELS_FILE = "models.yml";
+        private const string TEMPLATES_DIR = "TEMPLATES";
         private const string TEMPLATES_PERSONAL_DIR = "PERSONAL";
 
         #endregion Constants
@@ -40,6 +40,7 @@ namespace ModMan.EdgeTX.Providers
             // Add custom converters
             settings.RegisterSerializerFactory(new LogicalSwitchFunctionConverter());
             settings.RegisterSerializerFactory(new VersionConverter());
+            settings.RegisterSerializerFactory(new TimeSpanConverter());
 
             // Create the serializer
             serializer = new Serializer(settings);
@@ -50,36 +51,68 @@ namespace ModMan.EdgeTX.Providers
         #region Private Methods
 
         /// <summary>
+        /// Loads switches fr
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="modelData"></param>
+        static private void LoadLogicalSwitches(Model model, ModelData modelData)
+        {
+            // TODO: Make this work
+
+            
+            //foreach (var modelSwitch in modelData.LogicalSwitches.Values)
+            //{
+            //    model.LogicalSwitches.Add(new LogicalSwitch()
+            //    {
+            //        AndSwitch = modelSwitch.
+            //    });
+            //}
+        }
+
+        /// <summary>
         /// Loads the model at the specified path.
         /// </summary>
         /// <param name="profile">
         /// The profile to load the model from.
         /// </param>
-        /// <param name="modelRef">
-        /// A <see cref="ModelReferenceData" /> specifying which model to load.
+        /// <param name="profileData">
+        /// The profile data from storage.
+        /// </param>
+        /// <param name="modelRefData">
+        /// The model reference data from storage.
         /// </param>
         /// <returns>
         /// A <see cref="Task" /> that yields the <see cref="Model" />.
         /// </returns>
-        private async Task<Model> LoadModelAsync(Profile profile, ModelReferenceData modelRef)
+        private async Task<Model> LoadModelAsync(Profile profile, ProfileData profileData, ModelReferenceData modelRefData)
         {
             // Calculate the path to the models file
-            string modelFilePath = Path.Combine(profile.ModelsPath, modelRef.FileName);
+            string path = Path.Combine(profileData.ModelsPath, modelRefData.FileName);
 
             // If there is no models file, warn and exit
-            if (!File.Exists(modelFilePath))
+            if (!File.Exists(path))
             {
-                throw new FileNotFoundException("Model file could not be found.", modelFilePath);
+                throw new FileNotFoundException("Model file could not be found.", path);
             }
 
-            // Load the model yaml
-            var modelData = serializer.Deserialize<ModelData>(await File.ReadAllTextAsync(modelFilePath));
+            // Load the model from yaml
+            var modelData = serializer.Deserialize<ModelData>(await File.ReadAllTextAsync(path));
+            modelData.Path = path;
 
-            // Wrap in entity
-            return new Model(modelFilePath, modelData)
+            // Convert to model
+            var model = new Model()
             {
-                Category = modelRef.Category,
+                Category = modelRefData.Category,
+                IsTemplate = path.Contains(TEMPLATES_DIR),
+                Name = modelData.Header.Name,
+                Source = modelData,
             };
+
+            // Load the switches
+            LoadLogicalSwitches(model, modelData);
+
+            // Done!
+            return model;
         }
 
         /// <summary>
@@ -88,13 +121,16 @@ namespace ModMan.EdgeTX.Providers
         /// <param name="profile">
         /// The profile to load the models for.
         /// </param>
+        /// <param name="profileData">
+        /// The profile data from storage.
+        /// </param>
         /// <returns>
         /// A <see cref="Task" /> that represents the operation.
         /// </returns>
-        private async Task LoadModelsAsync(Profile profile)
+        private async Task LoadModelsAsync(Profile profile, ProfileData profileData)
         {
             // Calculate the path to the models file
-            string modelsFilePath = Path.Combine(profile.ModelsPath, MODELS_FILE);
+            string modelsFilePath = Path.Combine(profileData.ModelsPath, MODELS_FILE);
 
             // If there is no models file, warn and exit
             if (!File.Exists(modelsFilePath))
@@ -119,7 +155,7 @@ namespace ModMan.EdgeTX.Providers
                         modelRef.Category = category.Key;
 
                         // Load and add the model
-                        profile.Models.Add(await LoadModelAsync(profile, modelRef));
+                        profile.Models.Add(await LoadModelAsync(profile, profileData, modelRef));
                     }
                 }
             }
@@ -147,10 +183,10 @@ namespace ModMan.EdgeTX.Providers
         #region Public Methods
 
         /// <inheritdoc />
-        public Task<IEnumerable<IProfileReference>> GetProfilesAsync()
+        public Task<IEnumerable<ProfileReference>> GetProfilesAsync()
         {
             // Create an output list
-            List<IProfileReference> profiles = new();
+            List<ProfileReference> profiles = new();
 
             // Get all the version files (there will only be one)
             var files = Directory.GetFiles(@"C:\tmp\SD", "edgetx.sdcard.version");
@@ -158,32 +194,38 @@ namespace ModMan.EdgeTX.Providers
             // Add a profile for each version file
             foreach (var file in files)
             {
-                profiles.Add(new ProfileReferenceFile(this, file)
+                profiles.Add(new ProfileReference(this)
                 {
                     Name = Path.GetFileName(file),
+                    Source = new ProfileReferenceData() { Path = file },
                 });
             }
-
+            
             // Return the profiles
-            return Task.FromResult<IEnumerable<IProfileReference>>(profiles);
+            return Task.FromResult<IEnumerable<ProfileReference>>(profiles);
         }
 
         /// <inheritdoc />
-        public async Task<IProfile> LoadProfileAsync(IProfileReference reference, ProfileLoadOptions options)
+        public async Task<Profile> LoadProfileAsync(ProfileReference reference, ProfileLoadOptions options)
         {
             // Validate
             if (reference == null) { throw new ArgumentNullException(nameof(reference)); }
 
-            // Cast
-            var proRef = (ProfileReferenceFile)reference;
+            // Get our data
+            var profileRefData = (ProfileReferenceData)reference.Source;
 
             // Make sure file exists
-            if (!File.Exists(proRef.Path)) { throw new FileNotFoundException($"The profile '{proRef.Path}' was not found."); }
+            if (!File.Exists(profileRefData.Path)) { throw new FileNotFoundException($"The profile '{profileRefData.Path}' was not found."); }
 
-            // TODO: Load the name
+            // Create the profile data
+            var profileData = new ProfileData(profileRefData.Path);
 
             // Create the profile
-            Profile profile = new Profile(proRef.Path);
+            Profile profile = new Profile()
+            {
+                Source = profileData,
+                Name = Path.GetFileName(profileRefData.Path), // TODO: Load the name
+            };
 
             // Load the templates?
             if (options.IncludeTemplates != ModelTemplateSources.None)
@@ -194,7 +236,7 @@ namespace ModMan.EdgeTX.Providers
             // Load the models?
             if (options.IncludeModels)
             {
-                await LoadModelsAsync(profile);
+                await LoadModelsAsync(profile, profileData);
             }
 
             // Done loading

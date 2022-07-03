@@ -1,5 +1,5 @@
-﻿using ModMan.Core.Entities;
-using ModMan.EdgeTX.Data;
+﻿
+using ModMan.Core.Entities;
 
 namespace ModMan.Core.Providers
 {
@@ -16,7 +16,7 @@ namespace ModMan.Core.Providers
         /// <returns>
         /// A <see cref="Task" /> that yields the result of the operation.
         /// </returns>
-        Task<IEnumerable<IProfileReference>> GetProfilesAsync();
+        Task<IEnumerable<ProfileReference>> GetProfilesAsync();
 
         /// <summary>
         /// Loads the referenced profile.
@@ -30,7 +30,7 @@ namespace ModMan.Core.Providers
         /// <returns>
         /// A <see cref="Task" /> that yields the result of the operation.
         /// </returns>
-        Task<IProfile> LoadProfileAsync(IProfileReference reference, ProfileLoadOptions options);
+        Task<Profile> LoadProfileAsync(ProfileReference reference, ProfileLoadOptions options);
 
         #endregion Public Methods
     }
