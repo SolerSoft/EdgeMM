@@ -57,16 +57,24 @@ namespace ModMan.EdgeTX.Providers
         /// <param name="modelData"></param>
         static private void LoadLogicalSwitches(Model model, ModelData modelData)
         {
-            // TODO: Make this work
+            // If we have no switches to load, nothing to do
+            if (modelData.LogicalSwitches == null) { return; }
 
-            
-            //foreach (var modelSwitch in modelData.LogicalSwitches.Values)
-            //{
-            //    model.LogicalSwitches.Add(new LogicalSwitch()
-            //    {
-            //        AndSwitch = modelSwitch.
-            //    });
-            //}
+            // Load all switches
+            foreach (LogicalSwitchData switchData in modelData.LogicalSwitches.Values)
+            {
+                model.LogicalSwitches.Add(new LogicalSwitch()
+                {
+                    Source = switchData,
+                    AndSwitch = switchData.AndSwitch,
+                    Comment = switchData.Comment,
+                    Definition = switchData.Definition,
+                    Delay = switchData.Delay,
+                    Duration = switchData.Duration,
+                    Function = switchData.Function,
+                    Name = switchData.Name,
+                });
+            }
         }
 
         /// <summary>

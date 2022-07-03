@@ -19,6 +19,9 @@ namespace ModMan.EdgeTX.Data
         [YamlMember("logicalSw")]// Order=5
         public SortedDictionary<int, LogicalSwitchData> LogicalSwitches { get; set; }
 
+        [YamlMember("customFn")]// Order=5
+        public SortedDictionary<int, SpecialFunctionData> SpecialFunctions { get; set; }
+
         [YamlIgnore]
         public string Path { get; set; }
 

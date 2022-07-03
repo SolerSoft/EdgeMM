@@ -10,8 +10,11 @@ namespace ModMan.EdgeTX.Data
     {
         #region Public Properties
 
-        [YamlMember("bitmap")] // Order=1
+        [YamlMember("bitmap")] // Order=2
         public string Bitmap { get; set; }
+        
+        [YamlMember("comment")] // Order=1
+        public string Comment { get; set; }
 
         [YamlMember("name")] // Order=0
         public string Name { get; set; }

@@ -7,25 +7,33 @@ namespace ModMan.EdgeTX.Data
     /// <summary>
     /// Data for an EdgeTX logical switch.
     /// </summary>
-    /// See
-    /// <see href="http://open-txu.org/home/continuing-education/logical-switch-functions/">
-    /// Logical Switch Functions
-    /// </see>
-    /// for more information.
+    /// <remarks>
+    /// See <see href="http://open-txu.org/home/continuing-education/logical-switch-functions/"> Logical Switch Functions
+    /// </see> for more information.
+    /// </remarks>
     public class LogicalSwitchData : Expando
     {
         #region Public Properties
 
-        [YamlMember("andsw")] // Order=3
+        [YamlMember("andsw")] // Order=4
         public string AndSwitch { get; set; }
 
-        [YamlMember("def")] // Order=2
+        /// <summary>
+        /// A comment about the switch.
+        /// </summary>
+        /// <remarks>
+        /// Note that EdgeTX does not currently support comments, but since it's yaml we can extend it.
+        /// </remarks>
+        [YamlMember("comment")] // Order=1
+        public string Comment { get; set; }
+
+        [YamlMember("def")] // Order=3
         public string Definition { get; set; }
 
         /// <summary>
         /// The a delay before the switch comes on once the conditions are true.
         /// </summary>
-        [YamlMember("delay")] // Order=4
+        [YamlMember("delay")] // Order=5
         public TimeSpan Delay { get; set; }
 
         /// <summary>
@@ -33,10 +41,13 @@ namespace ModMan.EdgeTX.Data
         /// make the switch off. Any other setting will cause the switch to go off after the number of seconds selected,
         /// even if the conditions remain true.
         /// </summary>
-        [YamlMember("duration")] // Order=5
+        [YamlMember("duration")] // Order=6
         public TimeSpan Duration { get; set; }
 
-        [YamlMember("func")] // Order=1
+        /// <summary>
+        /// The function that will be used to evaluate whether the switch is on.
+        /// </summary>
+        [YamlMember("func")] // Order=2
         public LogicalSwitchFunction Function { get; set; }
 
         /// <summary>

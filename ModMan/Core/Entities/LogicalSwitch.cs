@@ -169,6 +169,7 @@
         #region Private Fields
 
         private string andSwitch;
+        private string comment;
         private string definition;
         private TimeSpan delay;
         private TimeSpan duration;
@@ -182,6 +183,15 @@
         {
             get => andSwitch;
             set => SetProperty(ref andSwitch, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a comment about the logical switch.
+        /// </summary>
+        public string Comment
+        {
+            get => comment;
+            set => SetProperty(ref comment, value);
         }
 
         public string Definition
@@ -219,7 +229,7 @@
         }
 
         /// <summary>
-        /// Gets or sets the function that will be used to evaluate whether the logical switch is on.
+        /// Gets or sets the function that will be used to evaluate whether the switch is on.
         /// </summary>
         /// <value>
         /// The function that will be used to evaluate whether the logical switch is on.
@@ -229,7 +239,6 @@
             get => function;
             set => SetProperty(ref function, value);
         }
-
         #endregion Public Properties
     }
 }
