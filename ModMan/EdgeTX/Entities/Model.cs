@@ -1,5 +1,6 @@
 ﻿using ModMan.Core.Entities;
 using ModMan.EdgeTX.Data;
+using LogicalSwitchCollection = ModMan.Core.Entities.EntityCollection<ModMan.Core.Entities.ILogicalSwitch, ModMan.EdgeTX.Entities.LogicalSwitch>;
 
 namespace ModMan.EdgeTX.Entities
 {
@@ -46,9 +47,19 @@ namespace ModMan.EdgeTX.Entities
 
             // Calculate
             isTemplate = path.Contains(TEMPLATES_DIR);
+
+            // TODO: Map collections
+            // LogicalSwitches = MAP HERE
         }
 
         #endregion Public Constructors
+
+        #region IModel Implementation
+
+        IEntityCollection<ILogicalSwitch> IModel.LogicalSwitches => LogicalSwitches;
+
+        #endregion IModel Implementation
+
 
         #region Public Properties
 
@@ -61,6 +72,9 @@ namespace ModMan.EdgeTX.Entities
 
         /// <inheritdoc />
         public bool IsTemplate => isTemplate;
+
+        /// <inheritdoc />
+        public LogicalSwitchCollection LogicalSwitches { get; private set; }
 
         /// <inheritdoc />
         public string Name

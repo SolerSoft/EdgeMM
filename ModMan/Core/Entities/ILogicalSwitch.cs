@@ -168,7 +168,7 @@
     /// Most radios follow the <see href="http://open-txu.org/home/continuing-education/logical-switch-functions/">
     /// standard defined by OpenTX</see>. EdgeTX defines data types for these functions in <see href="https://github.com/EdgeTX/edgetx/blob/main/companion/src/firmwares/edgetx/yaml_logicalswitchdata.cpp">yaml_logicalswitchdata.cpp</see>.
     /// </remarks>
-    public interface ILogicalSwitch
+    public interface ILogicalSwitch : IEntity
     {
         #region Public Properties
 

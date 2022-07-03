@@ -18,9 +18,9 @@ namespace ModMan.EdgeTX.Entities
 
         #region Private Fields
 
-        private ModelCollection models = new ModelCollection();
+        private ModelCollection models = new();
         private string name;
-        private ModelCollection templates = new ModelCollection();
+        private ModelCollection templates = new();
 
         #endregion Private Fields
 

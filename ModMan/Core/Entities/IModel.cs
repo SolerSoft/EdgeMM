@@ -24,6 +24,14 @@
         bool IsTemplate { get; }
 
         /// <summary>
+        /// Gets the list of logical switches for the model.
+        /// </summary>
+        /// <value>
+        /// The list of logical switches for the model.
+        /// </value>
+        IEntityCollection<ILogicalSwitch> LogicalSwitches { get; }
+
+        /// <summary>
         /// Gets or sets the name of the model.
         /// </summary>
         /// <value>
