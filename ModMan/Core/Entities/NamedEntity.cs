@@ -1,4 +1,6 @@
-﻿namespace ModMan.Core.Entities
+﻿using Plugin.ValidationRules;
+
+namespace ModMan.Core.Entities
 {
     /// <summary>
     /// Base class for an entity that has a name.
@@ -7,7 +9,7 @@
     {
         #region Private Fields
 
-        private string name;
+        private Validatable<string> name = new();
 
         #endregion Private Fields
 
@@ -19,10 +21,10 @@
         /// <value>
         /// The name of the entity.
         /// </value>
-        public string Name
+        public Validatable<string> Name
         {
             get => name;
-            set => SetProperty(ref name, value);
+            set => name = value;
         }
 
         #endregion Public Properties

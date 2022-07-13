@@ -3,6 +3,8 @@ using ModMan.Core.Providers;
 using ModMan.Core.Serialization.Yaml;
 using ModMan.EdgeTX.Data;
 using ModMan.EdgeTX.Serialization;
+using ModMan.Validation;
+using Plugin.ValidationRules.Extensions;
 using Serilog;
 using SharpYaml.Serialization;
 
@@ -63,17 +65,24 @@ namespace ModMan.EdgeTX.Providers
             // Load all switches
             foreach (LogicalSwitchData switchData in modelData.LogicalSwitches.Values)
             {
-                model.LogicalSwitches.Add(new LogicalSwitch()
-                {
-                    Source = switchData,
-                    AndSwitch = switchData.AndSwitch,
-                    Comment = switchData.Comment,
-                    Definition = switchData.Definition,
-                    Delay = switchData.Delay,
-                    Duration = switchData.Duration,
-                    Function = switchData.Function,
-                    Name = switchData.Name,
-                });
+                // Create the logical switch
+                LogicalSwitch ls = new();
+
+                // Add validations
+                ls.Name.WithRule(new MaxLengthRule(4), "Name is too long");
+
+                // Copy from data
+                ls.Source = switchData;
+                ls.AndSwitch = switchData.AndSwitch;
+                ls.Comment = switchData.Comment;
+                ls.Definition = switchData.Definition;
+                ls.Delay = switchData.Delay;
+                ls.Duration = switchData.Duration;
+                ls.Function = switchData.Function;
+                ls.Name.Value = switchData.Name;
+
+                // Add to model
+                model.LogicalSwitches.Add(ls);
             }
         }
 
@@ -107,14 +116,17 @@ namespace ModMan.EdgeTX.Providers
             var modelData = serializer.Deserialize<ModelData>(await File.ReadAllTextAsync(path));
             modelData.Path = path;
 
-            // Convert to model
-            var model = new Model()
-            {
-                Category = modelRefData.Category,
-                IsTemplate = path.Contains(TEMPLATES_DIR),
-                Name = modelData.Header.Name,
-                Source = modelData,
-            };
+            // Create model
+            var model = new Model();
+
+            // Add validations
+            model.Name.WithRule(new MaxLengthRule(4), "Name is too long");
+
+            // Set data
+            model.Category = modelRefData.Category;
+            model.IsTemplate = path.Contains(TEMPLATES_DIR);
+            model.Name.Value = modelData.Header.Name;
+            model.Source = modelData;
 
             // Load the switches
             LoadLogicalSwitches(model, modelData);
@@ -229,11 +241,13 @@ namespace ModMan.EdgeTX.Providers
             var profileData = new ProfileData(profileRefData.Path);
 
             // Create the profile
-            Profile profile = new Profile()
-            {
-                Source = profileData,
-                Name = Path.GetFileName(profileRefData.Path), // TODO: Load the name
-            };
+            Profile profile = new();
+
+            // Add validations
+            profile.Name.WithRule(new MaxLengthRule(4), "Name is too long");
+
+            profile.Source = profileData;
+            profile.Name.Value = Path.GetFileName(profileRefData.Path); // TODO: Load the name
 
             // Load the templates?
             if (options.IncludeTemplates != ModelTemplateSources.None)

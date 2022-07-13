@@ -1,16 +1,23 @@
-﻿namespace ModMan.Core.Entities
+﻿using ModMan.Validation;
+using Plugin.ValidationRules.Extensions;
+
+namespace ModMan.Core.Entities
 {
     using LogicalSwitchCollection = EntityCollection<LogicalSwitch>;
 
     /// <summary>
-    /// Represents an EdgeTX RC model.
+    /// Represents a RC model.
     /// </summary>
     public class Model : NamedEntity
     {
-        #region Constants
+        #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the maximum length allowed for the <see cref="NamedEntity.Name">Name</see> property.
+        /// </summary>
+        public static int NameMaxLength { get; set; } = -1;
 
-        #endregion Constants
+        #endregion Public Properties
 
         #region Private Fields
 
@@ -19,6 +26,21 @@
         private LogicalSwitchCollection logicalSwitches = new();
 
         #endregion Private Fields
+
+        #region Public Constructors
+
+        /// <summary>
+        /// Initializes a new <see cref="Model" /> instance.
+        /// </summary>
+        public Model()
+        {
+            if (NameMaxLength > -1)
+            {
+                Name = Name.WithRule(new StringLengthRule(-1, NameMaxLength), "Name is too long");
+            }
+        }
+
+        #endregion Public Constructors
 
         #region Public Properties
 
