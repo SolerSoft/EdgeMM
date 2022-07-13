@@ -49,6 +49,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Core\Managers\**" />
+	  <Compile Remove="Core\Managers\**" />
+	  <EmbeddedResource Remove="Core\Managers\**" />
+	  <MauiCss Remove="Core\Managers\**" />
+	  <MauiXaml Remove="Core\Managers\**" />
+	  <None Remove="Core\Managers\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Remove="Core\Serialization\Yaml\IndexedListDescriptor.cs" />
 	  <Compile Remove="Core\Serialization\Yaml\IndexedListSerializer.cs" />
 	</ItemGroup>
@@ -58,11 +67,7 @@
 	  <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
 	  <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
 	  <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-	  <PackageReference Include="SharpYaml" Version="1.9.2" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Core\Managers\" />
+	  <PackageReference Include="SharpYaml" Version="2.0.0" />
 	</ItemGroup>
 
 </Project>

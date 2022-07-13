@@ -16,10 +16,10 @@ namespace ModMan.EdgeTX.Data
         [YamlIgnore]
         public string Category { get; set; }
 
-        [YamlMember("filename")] // Order=0
+        [YamlMember("filename", 0)]
         public string FileName { get; set; }
 
-        [YamlMember("name")] // Order=1
+        [YamlMember("name", 1)]
         public string Name { get; set; }
 
         #endregion Public Properties

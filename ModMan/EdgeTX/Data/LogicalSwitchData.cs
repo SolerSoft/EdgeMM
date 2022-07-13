@@ -15,7 +15,7 @@ namespace ModMan.EdgeTX.Data
     {
         #region Public Properties
 
-        [YamlMember("andsw")] // Order=4
+        [YamlMember("andsw", 4)]
         public string AndSwitch { get; set; }
 
         /// <summary>
@@ -24,16 +24,16 @@ namespace ModMan.EdgeTX.Data
         /// <remarks>
         /// Note that EdgeTX does not currently support comments, but since it's yaml we can extend it.
         /// </remarks>
-        [YamlMember("comment")] // Order=1
+        [YamlMember("comment", 1)]
         public string Comment { get; set; }
 
-        [YamlMember("def")] // Order=3
+        [YamlMember("def", 3)]
         public string Definition { get; set; }
 
         /// <summary>
         /// The a delay before the switch comes on once the conditions are true.
         /// </summary>
-        [YamlMember("delay")] // Order=5
+        [YamlMember("delay", 5)]
         public TimeSpan Delay { get; set; }
 
         /// <summary>
@@ -41,13 +41,13 @@ namespace ModMan.EdgeTX.Data
         /// make the switch off. Any other setting will cause the switch to go off after the number of seconds selected,
         /// even if the conditions remain true.
         /// </summary>
-        [YamlMember("duration")] // Order=6
+        [YamlMember("duration", 6)]
         public TimeSpan Duration { get; set; }
 
         /// <summary>
         /// The function that will be used to evaluate whether the switch is on.
         /// </summary>
-        [YamlMember("func")] // Order=2
+        [YamlMember("func", 2)]
         public LogicalSwitchFunction Function { get; set; }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace ModMan.EdgeTX.Data
         /// <remarks>
         /// Note that EdgeTX does not currently support this, but since it's yaml we can add it.
         /// </remarks>
-        [YamlMember("name")] // Order=0
+        [YamlMember("name", 0)]
         public string Name { get; set; }
 
         #endregion Public Properties

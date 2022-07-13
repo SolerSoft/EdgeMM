@@ -13,19 +13,19 @@ namespace ModMan.EdgeTX.Data
     {
         #region Public Properties
 
-        [YamlMember("header")] // Order=1
+        [YamlMember("header", 1)]
         public ModelHeaderData Header { get; set; }
 
-        [YamlMember("logicalSw")]// Order=5
+        [YamlMember("logicalSw", 19)]
         public SortedDictionary<int, LogicalSwitchData> LogicalSwitches { get; set; }
 
-        [YamlMember("customFn")]// Order=5
+        [YamlMember("customFn", 20)]
         public SortedDictionary<int, SpecialFunctionData> SpecialFunctions { get; set; }
 
         [YamlIgnore]
         public string Path { get; set; }
 
-        [YamlMember("semver")] // Order=0
+        [YamlMember("semver", 0)]
         public Version SemVer { get; set; }
 
         #endregion Public Properties
