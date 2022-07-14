@@ -16,7 +16,7 @@ namespace ModMan.EdgeTX.Data
         [YamlMember("comment", 1)]
         public string Comment { get; set; }
 
-        [YamlMember("name, 0")]
+        [YamlMember("name", 0)]
         public string Name { get; set; }
 
         #endregion Public Properties

@@ -1,6 +1,7 @@
 ﻿using ModMan.Core.Providers;
 using ModMan.EdgeTX.Data;
 using Serilog;
+using SolerSoft.Maui;
 
 namespace ModMan;
 
@@ -38,6 +39,9 @@ public partial class MainPage : ContentPage
             var profile = await provider.LoadProfileAsync(profileReference, ProfileLoadOptions.Default);
 
             Log.Debug("Profile loaded.");
+
+            // Go to the model detail page
+            await Shell.Current.GoToAsync($"model/detail", $"model={profile.Models[0]}");
         }
         catch (Exception ex)
         {
