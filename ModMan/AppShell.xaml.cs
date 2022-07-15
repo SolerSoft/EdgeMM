@@ -1,4 +1,6 @@
-﻿using ModMan.Pages;
+﻿using ModMan.Core.Entities;
+using ModMan.Maui;
+using ModMan.UI;
 
 namespace ModMan;
 
@@ -8,7 +10,7 @@ public partial class AppShell : Shell
 
     private void RegisterRoutes()
     {
-        Routing.RegisterRoute("model/detail", typeof(ModelDetailPage));
+        Router.RegisterDetail<Model, ModelPage>();
     }
 
     #endregion Private Methods

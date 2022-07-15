@@ -1,18 +1,17 @@
 using ModMan.Core.Entities;
-using ModMan.ViewModels;
 using SolerSoft.Mvvm;
 
-namespace ModMan.Pages;
+namespace ModMan.UI;
 
 [QueryProperty(nameof(Model), "model")]
-public partial class ModelDetailPage : ViewPage<ModelDetailVM>
+public partial class ModelPage : ViewPage<ModelVM>
 {
     #region Public Constructors
 
     /// <summary>
-    /// Initializes a new <see cref="ModelDetailPage" />.
+    /// Initializes a new <see cref="ModelPage" />.
     /// </summary>
-    public ModelDetailPage()
+    public ModelPage()
     {
         InitializeComponent();
     }

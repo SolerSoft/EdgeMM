@@ -1,13 +1,12 @@
 ﻿using ModMan.Core.Entities;
-using ModMan.Pages;
 using SolerSoft.Mvvm;
 
-namespace ModMan.ViewModels
+namespace ModMan.UI
 {
     /// <summary>
-    /// The ViewModel for <see cref="ModelDetailPage" />.
+    /// The ViewModel for <see cref="ModelPage" />.
     /// </summary>
-    public class ModelDetailVM : ViewModel
+    public class ModelVM : ViewModel
     {
         #region Private Fields
 
@@ -18,7 +17,7 @@ namespace ModMan.ViewModels
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the model of the <see cref="ModelDetailVM" />.
+        /// Gets or sets the model of the <see cref="ModelVM" />.
         /// </summary>
         /// <value>
         /// The model of the <c>ModelDetailVM</c>.

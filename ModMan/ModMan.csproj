@@ -72,7 +72,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\Model\ModelDetailPage.xaml">
+	  <Compile Update="UI\Pages\ModelPage.xaml.cs">
+	    <DependentUpon>ModelPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="UI\Pages\ModelPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

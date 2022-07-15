@@ -2,10 +2,10 @@
 <mvvm:ViewPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:mvvm="clr-namespace:SolerSoft.Mvvm"
-             xmlns:vm="clr-namespace:ModMan.ViewModels"
-             x:TypeArguments="vm:ModelDetailVM"
-             x:Class="ModMan.Pages.ModelDetailPage"
-             Title="ModelDetailPage">
+             xmlns:ui="clr-namespace:ModMan.UI"
+             x:TypeArguments="ui:ModelVM"
+             x:Class="ModMan.UI.ModelPage"
+             Title="ModelPage">
     <VerticalStackLayout>
         <Label 
             Text="{Binding Path=Model.Name.Value}"

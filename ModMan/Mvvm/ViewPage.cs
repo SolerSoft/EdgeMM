@@ -1,12 +1,17 @@
 ﻿namespace SolerSoft.Mvvm;
 
 /// <summary>
-/// Base class Views with a ViewModel.
+/// Base class for Views
+/// </summary>
+public class ViewPage : ContentPage { }
+
+/// <summary>
+/// Base class for Views with a ViewModel.
 /// </summary>
 /// <typeparam name="TViewModel">
 /// The type of the ViewModel.
 /// </typeparam>
-public class ViewPage<TViewModel> : ContentPage where TViewModel : ViewModel, new()
+public class ViewPage<TViewModel> : ViewPage where TViewModel : ViewModel, new()
 {
     #region Private Fields
 
