@@ -14,6 +14,16 @@
             Text="{Binding Path=Model.Name.Value}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <ListView ItemsSource="{Binding Path=Model.LogicalSwitches}" />
+        <CollectionView ItemsSource="{Binding Path=Model.LogicalSwitches}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Label Text="{Binding Name.Value}" FontAttributes="Bold" />
+                        <Label Grid.Column="1" Text="{Binding Function}" />
+                        <Label Grid.Column="2" Text="{Binding Duration}" HorizontalTextAlignment="End" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
     </VerticalStackLayout>
 </mvvm:ViewPage>
