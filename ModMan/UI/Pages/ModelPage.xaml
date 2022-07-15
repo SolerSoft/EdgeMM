@@ -6,10 +6,14 @@
              x:TypeArguments="ui:ModelVM"
              x:Class="ModMan.UI.ModelPage"
              Title="ModelPage">
+    <mvvm:ViewPage.BindingContext>
+        <ui:ModelVM/>
+    </mvvm:ViewPage.BindingContext>
     <VerticalStackLayout>
         <Label 
             Text="{Binding Path=Model.Name.Value}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        <ListView ItemsSource="{Binding Path=Model.LogicalSwitches}" />
     </VerticalStackLayout>
 </mvvm:ViewPage>

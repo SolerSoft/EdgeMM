@@ -15,19 +15,27 @@ public class ViewPage<TViewModel> : ViewPage where TViewModel : ViewModel, new()
 {
     #region Private Fields
 
-    private TViewModel viewModel = new TViewModel();
+    private TViewModel viewModel;
 
     #endregion Private Fields
 
-    #region Public Constructors
-
     /// <summary>
-    /// Initializes a new ViewPage.
+    /// Ensures that the ViewModel has been created and the BindingContext is using it.
     /// </summary>
-    public ViewPage()
+    private void EnsureViewModel()
     {
-        BindingContext = viewModel;
+        if (BindingContext is TViewModel vm)
+        {
+            viewModel = vm;
+        }
+        else
+        {
+            viewModel = new TViewModel();
+            BindingContext = viewModel;
+        }
     }
+
+    #region Public Constructors
 
     #endregion Public Constructors
 
@@ -38,12 +46,10 @@ public class ViewPage<TViewModel> : ViewPage where TViewModel : ViewModel, new()
     /// </summary>
     public TViewModel ViewModel
     {
-        get => viewModel;
-        set
+        get
         {
-            viewModel = value;
-            BindingContext = viewModel;
-            OnPropertyChanged();
+            EnsureViewModel();
+            return viewModel;
         }
     }
 
