@@ -14,7 +14,7 @@
             Text="{Binding Path=Model.Name.Value}"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <CollectionView ItemsSource="{Binding Path=Model.LogicalSwitches}">
+        <CollectionView x:Name="SwitchList" ItemsSource="{Binding Path=Model.LogicalSwitches}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -25,5 +25,8 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <ui:LogicalSwitchView 
+            BindingContext="{Binding Source={x:Reference SwitchList}, Path=SelectedItem}" 
+            Name="{Binding Name.Value}"/>
     </VerticalStackLayout>
 </mvvm:ViewPage>
